@@ -11,12 +11,15 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
       } else if(backtransformation==T){stop("!!!WARNING: coding shoud be either .5 or 1")}
     }
   if(backtransformation==T){bt[1]<-NA}
-  if(backtransformation==T)bt<-as.numeric(as.character(bt))
+  if(backtransformation==T)bt<-round(as.numeric(as.character(bt)))
   params<-summary(model)$coefficients[1:nrow(summary(model)$coefficients),]
-  stats<-round(cbind(params,p_values),digits=3)
+  stats<-cbind(params,p_values)
+  stats[,1]<-round(stats[,1],digits=2)
+  stats[,2]<-round(stats[,2],digits=2)
+  stats[,3]<-round(stats[,3],digits=2)
+  stats[,4]<-round(stats[,4],digits=4)
   colnames(stats)[4]<-"p value"
   if(backtransformation==T)stats<-cbind(stats,bt)
   if(backtransformation==T)colnames(stats)[5]<-"backtransformed estimate"
   return(stats)
 }
-
