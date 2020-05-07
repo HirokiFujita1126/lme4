@@ -16,7 +16,7 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   stats<-round(cbind(params,p_values),digits=3)
   colnames(stats)[4]<-"p value"
   if(backtransformation==T)stats<-cbind(stats,bt)
-  if(backtransformation==T)colnames(stats)[5]<-"backtransformed_estimate"
+  if(backtransformation==T)colnames(stats)[5]<-"backtransformed estimate"
   return(stats)
 }
 
