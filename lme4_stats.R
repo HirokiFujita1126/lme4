@@ -14,6 +14,7 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   if(backtransformation==T)bt<-as.numeric(as.character(bt))
   params<-summary(model)$coefficients[1:nrow(summary(model)$coefficients),]
   stats<-round(cbind(params,p_values),digits=3)
+  colnames(stats)[4]<-"p value"
   if(backtransformation==T)stats<-cbind(stats,bt)
   if(backtransformation==T)colnames(stats)[5]<-"backtransformed_estimate"
   return(stats)
