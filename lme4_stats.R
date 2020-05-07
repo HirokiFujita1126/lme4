@@ -19,4 +19,3 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   if(backtransformation==T)colnames(stats)[5]<-"backtransformed estimate"
   return(stats)
 }
-
