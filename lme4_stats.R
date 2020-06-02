@@ -14,7 +14,7 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   if(backtransformation==T)bt<-round(as.numeric(as.character(bt)))
   params<-summary(model)$coefficients[1:nrow(summary(model)$coefficients),]
   stats<-cbind(params,p_values)
-  stats[,1]<-round(stats[,1],digits=2)
+  stats[,1]<-round(stats[,1],digits=3)
   stats[,2]<-round(stats[,2],digits=2)
   stats[,3]<-round(stats[,3],digits=2)
   stats[,4]<-round(stats[,4],digits=4)
