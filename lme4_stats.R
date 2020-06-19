@@ -1,4 +1,4 @@
-numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.4f",val))}
+numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.3f",val))}
 
 lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   p_values<-rep(0,length(model@beta))
@@ -14,6 +14,7 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
     } else if(backtransformation==T&coding==abs(1)){bt[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]))-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]))
     } else if(backtransformation==T){stop("!!!WARNING: coding shoud be either .5 or 1")}
   }
+  spp<-ifelse(p_values<=0.001,"<.001",ifelse(p_values==0.001,"=.001",round(p_values,digits=4)))
   t_values<-summary(model)$coefficients[,3]
   b_se<-bt/t_values
   if(backtransformation==T){bt[1]<-NA}
@@ -25,12 +26,11 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   stats[,1]<-round(stats[,1],digits=3)
   stats[,2]<-round(stats[,2],digits=2)
   stats[,3]<-round(stats[,3],digits=2)
-  stats[,4]<-round(stats[,4],digits=4)
   stats<-as.data.frame(stats)
   stats$p_values<-numf(p_values)
-  colnames(stats)[4]<-"p value"
-  if(backtransformation==T)stats<-cbind(stats,bt,b_se)
-  if(backtransformation==T)colnames(stats)[5]<-"BackTrans_Est"
-  if(backtransformation==T)colnames(stats)[6]<-"BackTrans_SE"
+  stats$p_values<-ifelse(stats$p_values==".000",".001",stats$p_values)
+  if(backtransformation==T)stats<-cbind(stats,spp,bt,b_se)
+  colnames(stats)<-c("Estimate","SE","t value","p value","*","BT_Est","BT_SE")
+  rownames(stats)[1]<-"Intercept"
   return(stats)
 }
