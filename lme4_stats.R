@@ -1,3 +1,5 @@
+numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.3f",val))}
+
 lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   p_values<-rep(0,length(model@beta))
   t_values<-rep(0,length(model@beta))
@@ -24,6 +26,8 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   stats[,2]<-round(stats[,2],digits=2)
   stats[,3]<-round(stats[,3],digits=2)
   stats[,4]<-round(stats[,4],digits=4)
+  stats<-as.data.frame(stats)
+  stats$p_values<-numf(p_values)
   colnames(stats)[4]<-"p value"
   if(backtransformation==T)stats<-cbind(stats,bt,b_se)
   if(backtransformation==T)colnames(stats)[5]<-"BackTrans_Est"
