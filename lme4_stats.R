@@ -1,4 +1,4 @@
-numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.3f",val))}
+numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.4f",val))}
 
 lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   p_values<-rep(0,length(model@beta))
