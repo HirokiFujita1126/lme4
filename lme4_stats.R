@@ -1,4 +1,5 @@
 numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.3f",val))}
+numf2<-function(val){sub("^(-?)0.","\\1.",sprintf("%.4f",val))}
 
 lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   p_values<-rep(0,length(model@beta))
@@ -14,7 +15,7 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
     } else if(backtransformation==T&coding==abs(1)){bt[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]))-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]))
     } else if(backtransformation==T){stop("!!!WARNING: coding shoud be either .5 or 1")}
   }
-  spp<-ifelse(p_values<0.001,"<.001",ifelse(p_values==0.001,"=.001",round(p_values,digits=4)))
+  spp<-ifelse(p_values<0.001,"<.001",ifelse(p_values==0.001,"=.001",numf2(p_values)))
   t_values<-summary(model)$coefficients[,3]
   b_se<-bt/t_values
   if(backtransformation==T){bt[1]<-NA}
