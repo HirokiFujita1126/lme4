@@ -31,7 +31,7 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   stats$p_values<-numf(p_values)
   stats$p_values<-ifelse(stats$p_values==".000",".001",stats$p_values)
   if(backtransformation==T)stats<-cbind(stats,spp,bt,b_se)
-  colnames(stats)<-c("Estimate","SE","t value","p value","*","BT_Est","BT_SE")
+  colnames(stats)<-c("Estimate","SE","t value","p value","*","Raw_Est","Raw_SE")
   rownames(stats)[1]<-"Intercept"
   return(stats)
 }
