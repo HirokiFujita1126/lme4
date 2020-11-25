@@ -49,7 +49,9 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   stats$p_values<-numf(p_values)
   stats$p_values<-ifelse(stats$p_values==".000",".001",stats$p_values)
   if(backtransformation==T)stats<-cbind(stats,spp,bt,lower,upper)
-  colnames(stats)<-c("Estimate","SE","t value","p value","*","Raw estimate","lower-95%","upper-95%")
+  if(backtransformation==T){colnames(stats)<-c("Estimate","SE","t value","p value","*","Raw estimate","lower-95%","upper-95%")}
+  if(backtransformation==F)stats<-cbind(stats,spp)
+  if(backtransformation==F){colnames(stats)<-c("Estimate","SE","t value","p value","*")}
   rownames(stats)[1]<-"Intercept"
   return(stats)
 }
