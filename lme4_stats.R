@@ -1,3 +1,5 @@
+if(any(grepl("package:lmerTest",search()))) detach("package:lmerTest") else message("")
+
 numf<-function(val){sub("^(-?)0.","\\1.",sprintf("%.3f",val))}
 numf2<-function(val){sub("^(-?)0.","\\1.",sprintf("%.4f",val))}
 
