@@ -39,9 +39,9 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   if(backtransformation==T){bt[1]<-NA}
   if(backtransformation==T){lower[1]<-NA}
   if(backtransformation==T){upper[1]<-NA}
-  if(backtransformation==T)bt<-round(as.numeric(as.character(bt)))
-  if(backtransformation==T)lower<-round(as.numeric(as.character(lower)))
-  if(backtransformation==T)upper<-round(as.numeric(as.character(upper)))
+  if(backtransformation==T)bt<-as.numeric(as.character(bt))
+  if(backtransformation==T)lower<-as.numeric(as.character(lower))
+  if(backtransformation==T)upper<-as.numeric(as.character(upper))
   params<-summary(model)$coefficients[1:nrow(summary(model)$coefficients),]
   stats<-cbind(params,p_values)
   stats[,1]<-round(stats[,1],digits=3)
