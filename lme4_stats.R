@@ -23,14 +23,14 @@ lme4_stats<-function(model=NULL,backtransformation=NULL,coding=NULL){
   }
   
   for (j in 1:length(model@beta)){
-    if(backtransformation==T&coding==abs(.5)){lower[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*2)/2)-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*2)/2)
-    } else if(backtransformation==T&coding==abs(1)){lower[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*2))-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*2))
+    if(backtransformation==T&coding==abs(.5)){lower[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*1.96)/2)-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*1.96)/2)
+    } else if(backtransformation==T&coding==abs(1)){lower[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*1.96))-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]-summary(model)$coefficients[j,2]*1.96))
     } else if(backtransformation==T){stop("!!!WARNING: coding shoud be either .5 or 1")}
   }
   
   for (j in 1:length(model@beta)){
-    if(backtransformation==T&coding==abs(.5)){upper[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*2)/2)-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*2)/2)
-    } else if(backtransformation==T&coding==abs(1)){upper[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*2))-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*2))
+    if(backtransformation==T&coding==abs(.5)){upper[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*1.96)/2)-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*1.96)/2)
+    } else if(backtransformation==T&coding==abs(1)){upper[j]<-exp(summary(model)$coefficients[1]+(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*1.96))-exp(summary(model)$coefficients[1]-(summary(model)$coefficients[j]+summary(model)$coefficients[j,2]*1.96))
     } else if(backtransformation==T){stop("!!!WARNING: coding shoud be either .5 or 1")}
   }
   
